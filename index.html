@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convert Machine</title>
+   
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Estilo geral da página */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        color: #333;
+        padding: 20px;
+    }
+
+    /* Estilo do título */
+    h1 {
+        border-style: double;
+        border-width: 15px;
+        text-align: center;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    /* Estilo da div de seleção */
+    div {
+        margin-bottom: 20px;
+    }
+
+    /* Estilo do parágrafo */
+    p {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    /* Estilo do select */
+    select {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 2px solid #ccc;
+    }
+
+    /* Estilo dos inputs e buttons */
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 2px solid #ccc;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    #resultado_hexadecimal,
+    #resultado_binario,
+    #resultado_decimal,
+    #resultado_octal {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #f1f1f1;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 18px;
+    }
+</style>
+
+<body>
+   
+    <h1>Convert Machine</h1>
+    <hr> <br>
+    <div>
+
+        <p><strong>Selecione o modo de conversão</strong></p>
+        <select name="select" id="select_converter" onclick="select_opcao()">
+            <option value="default" selected>DEFAULT</option>
+            <option value="binario">BINÁRIO</option>
+            <option value="decimal">DECIMAL</option>
+            <option value="octal">OCTAL</option>
+            <option value="hexadecimal">HEXADECIMAL</option>
+
+        </select>
+        <br><br>
+    </div>
+
+    <div id="decimal_div"></div>
+    <div id="binario_div"></div>
+    <div id="octal_div"></div>
+    <div id="hexadecimal_div"></div>
+
+</body>
+
+</html>
+
+<script>
+
+    function select_opcao() {
+        const opcao = select_converter.value
+
+        binario_div.innerHTML = ``
+        decimal_div.innerHTML = ``
+        octal_div.innerHTML = ``
+        hexadecimal_div.innerHTML = ``
+
+        if (opcao == "binario") {
+
+            binario_div.innerHTML = `
+        Digite o número BINÁRIO: <br>
+        <input placeholder="Ex: 10101010101" id="input_binario">
+        <button onclick="binario()">
+            Converter
+        </button>
+        <div id="resultado_binario">
+
+        </div>
+        `
+        } else if (opcao == "decimal") {
+
+            decimal_div.innerHTML = `
+        Digite o numero DECIMAL: <br>
+        <input placeholder="Ex: 12345678910"  id="input_decimal">
+        <button onclick="decimal()">
+            Converter
+        </button>
+        <div id="resultado_decimal">
+           
+        </div>
+        `
+        } else if (opcao == "octal") {
+
+            octal_div.innerHTML = `
+        Digite o número OCTAL: <br>
+        <input placeholder="Ex: 1234567123456"  id="input_octal1">
+        <button onclick="octal()">
+            Converter
+        </button>
+        <div id="resultado_octal">
+
+        </div>
+        `
+        } else if (opcao == "hexadecimal") {
+
+            hexadecimal_div.innerHTML = `
+        Digite o número HEXADECIMAL: <br>
+        <input  placeholder="Ex: 1A2B3C4D5E6F7"  id="input_hex1">
+        <button onclick="hexadecimal()">
+            Converter
+        </button>
+        <div id="resultado_hexadecimal">
+
+        </div>
+        `
+        }
+    }
+
+    function binario() {
+        var bina = input_binario.value
+        var decimal = parseInt(bina, 2)
+        var octal = decimal.toString(8)
+        var hexa = decimal.toString(16)
+        resultado_binario.innerHTML = `
+        <strong>DECIMAL:</strong> ${decimal} <br>    
+        <strong>OCTAL:</strong> ${octal} <br>
+        <strong>HEXADECIMAL:</strong> ${hexa.toUpperCase()}`
+
+    }
+    function decimal() {
+
+        var decimal = Number(input_decimal.value)
+        var octal = decimal.toString(8);
+        var hexa = decimal.toString(16);
+        var binario = decimal.toString(2);
+
+        resultado_decimal.innerHTML = `
+        <strong>BINÁRIO:</strong> ${binario} <br>
+        <strong>OCTAL:</strong> ${octal} <br>
+        <strong>HEXADECIMAL:</strong>  ${hexa.toUpperCase()} <br>
+        `
+
+    }
+    function octal() {
+        var octal = input_octal1.value
+        var decimal = parseInt(octal, 8)
+        var bina = decimal.toString(2)
+        var hexa = decimal.toString(16)
+        resultado_octal.innerHTML = `
+        <strong>DECIMAL:</strong> ${decimal} <br>
+        <strong>BINÁRIO:</strong> ${bina} <br>
+        <strong>HEXADECIMAL:</strong> ${hexa.toUpperCase()}`
+    }
+
+    function hexadecimal() {
+        var hexa = input_hex1.value
+        var decimal = parseInt(hexa, 16)
+        var bina = decimal.toString(2)
+        var octal = decimal.toString(8)
+        resultado_hexadecimal.innerHTML = `
+        <strong>DECIMAL:</strong> ${decimal} <br>
+        <strong>BINÁRIO:</strong> ${bina} <br>
+        <strong>OCTAL:</strong> ${octal}`
+    }
+
+
+</script>
